@@ -137,7 +137,7 @@ h5f_data = h5py.File('C:\\Users\\himanshu\\Desktop\\flowers classification\\outp
 h5f_data.create_dataset('dataset_1', data = np.array(rescaled_features))
 
 h5f_label = h5py.File('C:\\Users\\himanshu\\Desktop\\flowers classification\\output\\label.h5', 'w')
-h5f_label.create_dataset('dataset_1', data = np.array(target.shape))
+h5f_label.create_dataset('dataset_1', data = np.array(target))
 
 h5f_data.close()
 h5f_label.close()

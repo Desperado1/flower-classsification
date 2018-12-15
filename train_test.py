@@ -62,7 +62,7 @@ print("Test label : {}".format(testLabelsGlobal.shape))
 print("Train label : {}".format(trainLabelsGlobal.shape))
 
 import warnings
-warnings.formatwarnings('ignore')
+warnings.filterwarnings('ignore')
 
 # 10-fold cross validation
 for name, model in models:
@@ -82,8 +82,10 @@ ax.set_xticklabels(names)
 pyplot.show()
 
 import matplotlib.pyplot as plt
-from Global.py
+import sys
 
+sys.path.append('C:/Users/himanshu/Desktop/flowers classification')
+import Global
 # creating random forest model
 clf = RandomForestClassifier(n_estimators=100, random_state = 9)
 
@@ -104,8 +106,7 @@ for file in glob.glob(test_path + "/*.jpg"):
     prediction = clf.predict(global_feature.reshape(1, -1))[0]
     
     #showing predicted label on image
-    cv2.putText(image, trainLabelsGlobal[prediction], (20, 30), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 255, 255), 3)
-    
+    cv2.putText(image, Global.train_labels[prediction], (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0,255,255), 3)    
     plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
     plt.show()
 
