@@ -99,8 +99,9 @@ for file in glob.glob(test_path + "/*.jpg"):
     image = cv2.resize(image, (500, 500))
     fv_hu_moments = Global.fd_hu_moments(image)
     fv_haralick = Global.fd_haralick(image)
+    fv_histogram = Global.fd_histogram(image)
     
-    global_feature = np.hstack([fv_hu_moments, fv_haralick])
+    global_feature = np.hstack([fv_hu_moments, fv_haralick, fv_histogram])
     
     #predicting label
     prediction = clf.predict(global_feature.reshape(1, -1))[0]

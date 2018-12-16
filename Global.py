@@ -46,12 +46,19 @@ def fd_haralick(image):
 # third feature descriptor : Color Histogram
 def fd_histogram(image, mask = None):
 	# converting imge to HSV using cvtColor 
-	image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 	# computing color histogram
-	hist = cv2.calcHist([image], [0, 1, 2], None, [bins, bins, bins], [0, 256, 0, 256, 0, 256])
+	hist = cv2.calcHist([image], [0, 1], None, [180, 256], [0, 180, 0, 256])
 	# normalize the histogram
-	hist = cv2.normalize(hist, hist)
-	return hist
+	cv2.normalize(hist, hist)
+	return hist.flatten()
+
+"""
+path = "C:\\Users\\himanshu\\Desktop\\flowers classification\\dataset\\train\\bluebell\\1 (1).jpg"
+img = cv2.imread(path)
+img = cv2.resize(img, fixed_size)
+histo = fd_histogram(img)
+"""
 
 
 # getting training labels
@@ -95,10 +102,10 @@ for training_name in train_labels:
         
         fv_hu_moments = fd_hu_moments(image)
         fv_haralick = fd_haralick(image)
-        #fv_histogram = fd_histogram(image)
+        fv_histogram = fd_histogram(image)
 
         # concatenate global features
-        global_feature = np.hstack([fv_hu_moments, fv_haralick])
+        global_feature = np.hstack([fv_hu_moments, fv_haralick, fv_histogram])
         
         # updating the list of labels and feature vector
         labels.append(current_label)
